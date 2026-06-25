@@ -1,2 +1,3 @@
 # TeamHub-DotNet
-An enterprise-style team collaboration platform developed with ASP.NET Core and C# to practice authentication, authorization, project management, task workflows, notifications, and software architecture principles.
+
+TeamHub is a team collaboration platform built with ASP.NET Core and C# to learn enterprise-grade backend development through real-world features such as authentication, role management, projects, tasks, comments, and notifications.
