@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<WorkspaceService>();
-builder.Services.AddScoped<WorkspaceRepository>();
+builder.Services.AddScoped<IWorkspaceRepository,WorkspaceRepository>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
