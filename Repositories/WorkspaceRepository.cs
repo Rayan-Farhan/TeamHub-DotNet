@@ -2,7 +2,7 @@ using TeamHub.Models;
 
 namespace TeamHub.Repositories;
 
-public class WorkspaceRepository
+public class WorkspaceRepository : IWorkspaceRepository
 {
     private readonly List<Workspace> workspaces =
     [
@@ -20,6 +20,8 @@ public class WorkspaceRepository
 
     public Workspace? GetById(int id)
     {
-        return workspaces.FirstOrDefault(w => w.Id == id); // LINQ query to find the workspace with the given id, works similarly to python's next((w for w in workspaces if w.id == id),None)
+        return workspaces.FirstOrDefault(
+            w => w.Id == id
+        );
     }
 }

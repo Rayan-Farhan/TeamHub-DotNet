@@ -5,9 +5,9 @@ namespace TeamHub.Services;
 
 public class WorkspaceService
 {
-    private readonly WorkspaceRepository repository;
+    private readonly IWorkspaceRepository repository;
 
-    public WorkspaceService(WorkspaceRepository repository)
+    public WorkspaceService(IWorkspaceRepository repository)
     {
         this.repository = repository;
     }
