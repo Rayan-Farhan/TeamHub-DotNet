@@ -24,4 +24,16 @@ public class WorkspaceRepository : IWorkspaceRepository
             w => w.Id == id
         );
     }
+
+    public Workspace Create(string name)
+    {
+        var workspace = new Workspace
+        {
+            Id = workspaces.Count == 0 ? 1 : workspaces.Max(w => w.Id) + 1,
+            Name = name
+        };
+
+        workspaces.Add(workspace);
+        return workspace;
+    }
 }
