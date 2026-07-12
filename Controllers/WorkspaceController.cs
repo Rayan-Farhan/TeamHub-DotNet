@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TeamHub.Models;
 using TeamHub.Services;
+using TeamHub.Dtos;
 
 namespace TeamHub.Controllers;
 
@@ -24,5 +25,16 @@ public class WorkspaceController : ControllerBase
             return NotFound();
         }
         return Ok(workspace);
+    }
+
+    [HttpPost]
+    public ActionResult<Workspace> CreateWorkspace(CreateWorkspaceRequest request)
+    {
+        var workspace = workspaceService.CreateWorkspace(request);
+
+        return CreatedAtAction(
+            nameof(GetWorkspace),
+            new { id = workspace.Id },
+            workspace);
     }
 }
