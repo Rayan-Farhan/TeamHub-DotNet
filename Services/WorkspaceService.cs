@@ -4,7 +4,7 @@ using TeamHub.Dtos;
 
 namespace TeamHub.Services;
 
-public class WorkspaceService
+public class WorkspaceService : IWorkspaceService
 {
     private readonly IWorkspaceRepository repository;
 
@@ -21,5 +21,15 @@ public class WorkspaceService
     public Workspace CreateWorkspace(CreateWorkspaceRequest request)
     {
         return repository.Create(request.Name);
+    }
+
+    public bool UpdateWorkspace(int id, UpdateWorkspaceRequest request)
+    {
+        return repository.Update(id, request.Name);
+    }
+
+    public bool DeleteWorkspace(int id)
+    {
+        return repository.Delete(id);
     }
 }
