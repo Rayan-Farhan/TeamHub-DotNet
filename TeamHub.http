@@ -1,6 +1,29 @@
 @TeamHub_HostAddress = http://localhost:5159
 
-GET {{TeamHub_HostAddress}}/weatherforecast/
+GET {{TeamHub_HostAddress}}/api/workspaces/1
+Accept: application/json
+
+###
+
+POST {{TeamHub_HostAddress}}/api/workspaces
+Content-Type: application/json
+
+{
+  "name": "DevOps Team"
+}
+
+###
+
+PUT {{TeamHub_HostAddress}}/api/workspaces/1
+Content-Type: application/json
+
+{
+  "name": "Updated AI Team"
+}
+
+###
+
+DELETE {{TeamHub_HostAddress}}/api/workspaces/1
 Accept: application/json
 
 ###

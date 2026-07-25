@@ -4,7 +4,7 @@ using TeamHub.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<WorkspaceService>();
+builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddScoped<IWorkspaceRepository,WorkspaceRepository>();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
