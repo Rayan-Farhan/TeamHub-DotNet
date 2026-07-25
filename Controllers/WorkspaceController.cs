@@ -9,9 +9,9 @@ namespace TeamHub.Controllers;
 [Route("api/workspaces")]
 public class WorkspaceController : ControllerBase
 {
-    private readonly WorkspaceService workspaceService;
+    private readonly IWorkspaceService workspaceService;
 
-    public WorkspaceController(WorkspaceService workspaceService)
+    public WorkspaceController(IWorkspaceService workspaceService)
     {
         this.workspaceService = workspaceService;
     }
@@ -36,5 +36,29 @@ public class WorkspaceController : ControllerBase
             nameof(GetWorkspace),
             new { id = workspace.Id },
             workspace);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateWorkspace(int id, UpdateWorkspaceRequest request)
+    {
+        var updated = workspaceService.UpdateWorkspace(id, request);
+        if (!updated)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteWorkspace(int id)
+    {
+        var deleted = workspaceService.DeleteWorkspace(id);
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
     }
 }
