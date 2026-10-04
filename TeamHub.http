@@ -1,5 +1,12 @@
 @TeamHub_HostAddress = http://localhost:5159
 
+### Workspaces Endpoints
+
+GET {{TeamHub_HostAddress}}/api/workspaces
+Accept: application/json
+
+###
+
 GET {{TeamHub_HostAddress}}/api/workspaces/1
 Accept: application/json
 
@@ -24,6 +31,41 @@ Content-Type: application/json
 ###
 
 DELETE {{TeamHub_HostAddress}}/api/workspaces/1
+Accept: application/json
+
+### Users Endpoints
+
+GET {{TeamHub_HostAddress}}/api/users
+Accept: application/json
+
+###
+
+GET {{TeamHub_HostAddress}}/api/users/1
+Accept: application/json
+
+###
+
+POST {{TeamHub_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Alice Smith",
+  "email": "alice@example.com"
+}
+
+###
+
+PUT {{TeamHub_HostAddress}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "Rayan Updated",
+  "email": "rayan.updated@test.com"
+}
+
+###
+
+DELETE {{TeamHub_HostAddress}}/api/users/1
 Accept: application/json
 
 ###
