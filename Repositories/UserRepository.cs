@@ -1,45 +1,38 @@
+using TeamHub.Data;
 using TeamHub.Models;
 
 namespace TeamHub.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private static readonly List<User> users =
-    [
-        new User
-        {
-            Id = 1,
-            Name = "Rayan",
-            Email = "rayan@test.com"
-        },
-        new User
-        {
-            Id = 2,
-            Name = "Farhan",
-            Email = "farhan@test.com"
-        }
-    ];
+    private readonly TeamHubDbContext context;
+
+    public UserRepository(TeamHubDbContext context)
+    {
+        this.context = context;
+    }
 
     public List<User> GetAll()
     {
-        return users;
+        return context.Users.ToList();
     }
 
     public User? GetById(int id)
     {
-        return users.FirstOrDefault(u => u.Id == id);
+        return context.Users.Find(id);
     }
 
     public User Create(string name, string email)
     {
         var user = new User
         {
-            Id = users.Count == 0 ? 1 : users.Max(u => u.Id) + 1,
             Name = name,
             Email = email
         };
 
-        users.Add(user);
+        context.Users.Add(user);
+        context.SaveChanges();
+
         return user;
     }
 
@@ -53,6 +46,8 @@ public class UserRepository : IUserRepository
 
         user.Name = name;
         user.Email = email;
+        context.SaveChanges();
+
         return true;
     }
 
@@ -64,7 +59,9 @@ public class UserRepository : IUserRepository
             return false;
         }
 
-        users.Remove(user);
+        context.Users.Remove(user);
+        context.SaveChanges();
+
         return true;
     }
 }
