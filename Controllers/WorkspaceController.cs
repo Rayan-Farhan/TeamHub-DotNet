@@ -16,6 +16,13 @@ public class WorkspaceController : ControllerBase
         this.workspaceService = workspaceService;
     }
 
+    [HttpGet]
+    public ActionResult<IEnumerable<Workspace>> GetAllWorkspaces()
+    {
+        var workspaces = workspaceService.GetAllWorkspaces();
+        return Ok(workspaces);
+    }
+
     [HttpGet("{id}")]
     public IActionResult GetWorkspace(int id)
     {

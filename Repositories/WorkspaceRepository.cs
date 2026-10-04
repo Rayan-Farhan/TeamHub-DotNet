@@ -4,7 +4,7 @@ namespace TeamHub.Repositories;
 
 public class WorkspaceRepository : IWorkspaceRepository
 {
-    private readonly List<Workspace> workspaces =
+    private static readonly List<Workspace> workspaces =
     [
         new Workspace
         {
@@ -17,6 +17,11 @@ public class WorkspaceRepository : IWorkspaceRepository
             Name = "Mobile Team"
         }
     ];
+
+    public List<Workspace> GetAll()
+    {
+        return workspaces;
+    }
 
     public Workspace? GetById(int id)
     {

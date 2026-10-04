@@ -13,6 +13,11 @@ public class WorkspaceService : IWorkspaceService
         this.repository = repository;
     }
 
+    public List<Workspace> GetAllWorkspaces()
+    {
+        return repository.GetAll();
+    }
+
     public Workspace? GetWorkspace(int id)
     {
         return repository.GetById(id);

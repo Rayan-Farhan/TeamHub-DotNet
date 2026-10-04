@@ -1,3 +1,5 @@
+namespace TeamHub.Models;
+
 public class Workspace
 {
     public int Id { get; set; }
