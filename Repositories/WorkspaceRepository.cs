@@ -1,44 +1,37 @@
+using TeamHub.Data;
 using TeamHub.Models;
 
 namespace TeamHub.Repositories;
 
 public class WorkspaceRepository : IWorkspaceRepository
 {
-    private static readonly List<Workspace> workspaces =
-    [
-        new Workspace
-        {
-            Id = 1,
-            Name = "AI Team"
-        },
-        new Workspace
-        {
-            Id = 2,
-            Name = "Mobile Team"
-        }
-    ];
+    private readonly TeamHubDbContext context;
+
+    public WorkspaceRepository(TeamHubDbContext context)
+    {
+        this.context = context;
+    }
 
     public List<Workspace> GetAll()
     {
-        return workspaces;
+        return context.Workspaces.ToList();
     }
 
     public Workspace? GetById(int id)
     {
-        return workspaces.FirstOrDefault(
-            w => w.Id == id
-        );
+        return context.Workspaces.Find(id);
     }
 
     public Workspace Create(string name)
     {
         var workspace = new Workspace
         {
-            Id = workspaces.Count == 0 ? 1 : workspaces.Max(w => w.Id) + 1,
             Name = name
         };
 
-        workspaces.Add(workspace);
+        context.Workspaces.Add(workspace);
+        context.SaveChanges();
+
         return workspace;
     }
 
@@ -51,6 +44,8 @@ public class WorkspaceRepository : IWorkspaceRepository
         }
 
         workspace.Name = name;
+        context.SaveChanges();
+
         return true;
     }
 
@@ -62,7 +57,9 @@ public class WorkspaceRepository : IWorkspaceRepository
             return false;
         }
 
-        workspaces.Remove(workspace);
+        context.Workspaces.Remove(workspace);
+        context.SaveChanges();
+
         return true;
     }
 }
