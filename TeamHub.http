@@ -69,3 +69,47 @@ DELETE {{TeamHub_HostAddress}}/api/users/1
 Accept: application/json
 
 ###
+
+### Projects Endpoints
+
+GET {{TeamHub_HostAddress}}/api/projects
+Accept: application/json
+
+###
+
+GET {{TeamHub_HostAddress}}/api/projects/1
+Accept: application/json
+
+###
+
+GET {{TeamHub_HostAddress}}/api/workspaces/1/projects
+Accept: application/json
+
+###
+
+POST {{TeamHub_HostAddress}}/api/projects
+Content-Type: application/json
+
+{
+  "name": "Backend Architecture Overhaul",
+  "description": "Migrate to EF Core with async patterns and PostgreSQL",
+  "workspaceId": 1
+}
+
+###
+
+PUT {{TeamHub_HostAddress}}/api/projects/1
+Content-Type: application/json
+
+{
+  "name": "Updated Backend Architecture",
+  "description": "Refined project description"
+}
+
+###
+
+DELETE {{TeamHub_HostAddress}}/api/projects/1
+Accept: application/json
+
+###
+
