@@ -17,32 +17,54 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
     {
         var users = await userService.GetAllUsersAsync();
-        return Ok(users);
+        var dtos = users.Select(u => new UserDto
+        {
+            Id = u.Id,
+            Name = u.Name,
+            Email = u.Email
+        });
+
+        return Ok(dtos);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUser(int id)
+    public async Task<ActionResult<UserDto>> GetUser(int id)
     {
         var user = await userService.GetUserAsync(id);
         if (user == null)
         {
             return NotFound();
         }
-        return Ok(user);
+
+        var dto = new UserDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email
+        };
+
+        return Ok(dto);
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> CreateUser(CreateUserRequest request)
+    public async Task<ActionResult<UserDto>> CreateUser(CreateUserRequest request)
     {
         var user = await userService.CreateUserAsync(request);
 
+        var dto = new UserDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email
+        };
+
         return CreatedAtAction(
             nameof(GetUser),
-            new { id = user.Id },
-            user);
+            new { id = dto.Id },
+            dto);
     }
 
     [HttpPut("{id}")]
