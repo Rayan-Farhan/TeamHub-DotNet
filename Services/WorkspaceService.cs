@@ -13,28 +13,28 @@ public class WorkspaceService : IWorkspaceService
         this.repository = repository;
     }
 
-    public List<Workspace> GetAllWorkspaces()
+    public async Task<List<Workspace>> GetAllWorkspacesAsync()
     {
-        return repository.GetAll();
+        return await repository.GetAllAsync();
     }
 
-    public Workspace? GetWorkspace(int id)
+    public async Task<Workspace?> GetWorkspaceAsync(int id)
     {
-        return repository.GetById(id);
+        return await repository.GetByIdAsync(id);
     }
 
-    public Workspace CreateWorkspace(CreateWorkspaceRequest request)
+    public async Task<Workspace> CreateWorkspaceAsync(CreateWorkspaceRequest request)
     {
-        return repository.Create(request.Name);
+        return await repository.CreateAsync(request.Name);
     }
 
-    public bool UpdateWorkspace(int id, UpdateWorkspaceRequest request)
+    public async Task<bool> UpdateWorkspaceAsync(int id, UpdateWorkspaceRequest request)
     {
-        return repository.Update(id, request.Name);
+        return await repository.UpdateAsync(id, request.Name);
     }
 
-    public bool DeleteWorkspace(int id)
+    public async Task<bool> DeleteWorkspaceAsync(int id)
     {
-        return repository.Delete(id);
+        return await repository.DeleteAsync(id);
     }
 }

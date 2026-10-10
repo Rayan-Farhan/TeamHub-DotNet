@@ -17,16 +17,16 @@ public class WorkspaceController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Workspace>> GetAllWorkspaces()
+    public async Task<ActionResult<IEnumerable<Workspace>>> GetAllWorkspaces()
     {
-        var workspaces = workspaceService.GetAllWorkspaces();
+        var workspaces = await workspaceService.GetAllWorkspacesAsync();
         return Ok(workspaces);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetWorkspace(int id)
+    public async Task<IActionResult> GetWorkspace(int id)
     {
-        var workspace = workspaceService.GetWorkspace(id);
+        var workspace = await workspaceService.GetWorkspaceAsync(id);
         if (workspace == null)
         {
             return NotFound();
@@ -35,9 +35,9 @@ public class WorkspaceController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Workspace> CreateWorkspace(CreateWorkspaceRequest request)
+    public async Task<ActionResult<Workspace>> CreateWorkspace(CreateWorkspaceRequest request)
     {
-        var workspace = workspaceService.CreateWorkspace(request);
+        var workspace = await workspaceService.CreateWorkspaceAsync(request);
 
         return CreatedAtAction(
             nameof(GetWorkspace),
@@ -46,9 +46,9 @@ public class WorkspaceController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateWorkspace(int id, UpdateWorkspaceRequest request)
+    public async Task<IActionResult> UpdateWorkspace(int id, UpdateWorkspaceRequest request)
     {
-        var updated = workspaceService.UpdateWorkspace(id, request);
+        var updated = await workspaceService.UpdateWorkspaceAsync(id, request);
         if (!updated)
         {
             return NotFound();
@@ -58,9 +58,9 @@ public class WorkspaceController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteWorkspace(int id)
+    public async Task<IActionResult> DeleteWorkspace(int id)
     {
-        var deleted = workspaceService.DeleteWorkspace(id);
+        var deleted = await workspaceService.DeleteWorkspaceAsync(id);
         if (!deleted)
         {
             return NotFound();

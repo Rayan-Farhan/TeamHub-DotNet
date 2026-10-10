@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TeamHub.Data;
 using TeamHub.Models;
 
@@ -12,53 +13,53 @@ public class WorkspaceRepository : IWorkspaceRepository
         this.context = context;
     }
 
-    public List<Workspace> GetAll()
+    public async Task<List<Workspace>> GetAllAsync()
     {
-        return context.Workspaces.ToList();
+        return await context.Workspaces.ToListAsync();
     }
 
-    public Workspace? GetById(int id)
+    public async Task<Workspace?> GetByIdAsync(int id)
     {
-        return context.Workspaces.Find(id);
+        return await context.Workspaces.FindAsync(id);
     }
 
-    public Workspace Create(string name)
+    public async Task<Workspace> CreateAsync(string name)
     {
         var workspace = new Workspace
         {
             Name = name
         };
 
-        context.Workspaces.Add(workspace);
-        context.SaveChanges();
+        await context.Workspaces.AddAsync(workspace);
+        await context.SaveChangesAsync();
 
         return workspace;
     }
 
-    public bool Update(int id, string name)
+    public async Task<bool> UpdateAsync(int id, string name)
     {
-        var workspace = GetById(id);
+        var workspace = await GetByIdAsync(id);
         if (workspace == null)
         {
             return false;
         }
 
         workspace.Name = name;
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return true;
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var workspace = GetById(id);
+        var workspace = await GetByIdAsync(id);
         if (workspace == null)
         {
             return false;
         }
 
         context.Workspaces.Remove(workspace);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return true;
     }
