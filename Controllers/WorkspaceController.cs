@@ -47,6 +47,18 @@ public class WorkspaceController : ControllerBase
         return Ok(dto);
     }
 
+    [HttpGet("{id}/with-projects")]
+    public async Task<ActionResult<WorkspaceWithProjectsDto>> GetWorkspaceWithProjects(int id)
+    {
+        var workspace = await workspaceService.GetWorkspaceWithProjectsAsync(id);
+        if (workspace == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(workspace);
+    }
+
     [HttpPost]
     public async Task<ActionResult<WorkspaceDto>> CreateWorkspace(CreateWorkspaceRequest request)
     {

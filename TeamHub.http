@@ -12,6 +12,11 @@ Accept: application/json
 
 ###
 
+GET {{TeamHub_HostAddress}}/api/workspaces/1/with-projects
+Accept: application/json
+
+###
+
 POST {{TeamHub_HostAddress}}/api/workspaces
 Content-Type: application/json
 

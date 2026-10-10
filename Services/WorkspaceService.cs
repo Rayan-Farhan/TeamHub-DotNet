@@ -23,6 +23,28 @@ public class WorkspaceService : IWorkspaceService
         return await repository.GetByIdAsync(id);
     }
 
+    public async Task<WorkspaceWithProjectsDto?> GetWorkspaceWithProjectsAsync(int id)
+    {
+        var workspace = await repository.GetByIdWithProjectsAsync(id);
+        if (workspace == null)
+        {
+            return null;
+        }
+
+        return new WorkspaceWithProjectsDto
+        {
+            Id = workspace.Id,
+            Name = workspace.Name,
+            Projects = workspace.Projects.Select(p => new ProjectDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                WorkspaceId = p.WorkspaceId
+            }).ToList()
+        };
+    }
+
     public async Task<Workspace> CreateWorkspaceAsync(CreateWorkspaceRequest request)
     {
         return await repository.CreateAsync(request.Name);
