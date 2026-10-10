@@ -4,9 +4,9 @@ namespace TeamHub.Repositories;
 
 public interface IUserRepository
 {
-    List<User> GetAll();
-    User? GetById(int id);
-    User Create(string name, string email);
-    bool Update(int id, string name, string email);
-    bool Delete(int id);
+    Task<List<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(int id);
+    Task<User> CreateAsync(string name, string email);
+    Task<bool> UpdateAsync(int id, string name, string email);
+    Task<bool> DeleteAsync(int id);
 }

@@ -5,9 +5,9 @@ namespace TeamHub.Services;
 
 public interface IUserService
 {
-    List<User> GetAllUsers();
-    User? GetUser(int id);
-    User CreateUser(CreateUserRequest request);
-    bool UpdateUser(int id, UpdateUserRequest request);
-    bool DeleteUser(int id);
+    Task<List<User>> GetAllUsersAsync();
+    Task<User?> GetUserAsync(int id);
+    Task<User> CreateUserAsync(CreateUserRequest request);
+    Task<bool> UpdateUserAsync(int id, UpdateUserRequest request);
+    Task<bool> DeleteUserAsync(int id);
 }

@@ -13,28 +13,28 @@ public class UserService : IUserService
         this.repository = repository;
     }
 
-    public List<User> GetAllUsers()
+    public async Task<List<User>> GetAllUsersAsync()
     {
-        return repository.GetAll();
+        return await repository.GetAllAsync();
     }
 
-    public User? GetUser(int id)
+    public async Task<User?> GetUserAsync(int id)
     {
-        return repository.GetById(id);
+        return await repository.GetByIdAsync(id);
     }
 
-    public User CreateUser(CreateUserRequest request)
+    public async Task<User> CreateUserAsync(CreateUserRequest request)
     {
-        return repository.Create(request.Name, request.Email);
+        return await repository.CreateAsync(request.Name, request.Email);
     }
 
-    public bool UpdateUser(int id, UpdateUserRequest request)
+    public async Task<bool> UpdateUserAsync(int id, UpdateUserRequest request)
     {
-        return repository.Update(id, request.Name, request.Email);
+        return await repository.UpdateAsync(id, request.Name, request.Email);
     }
 
-    public bool DeleteUser(int id)
+    public async Task<bool> DeleteUserAsync(int id)
     {
-        return repository.Delete(id);
+        return await repository.DeleteAsync(id);
     }
 }

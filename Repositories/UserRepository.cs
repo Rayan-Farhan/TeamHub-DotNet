@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TeamHub.Data;
 using TeamHub.Models;
 
@@ -12,17 +13,17 @@ public class UserRepository : IUserRepository
         this.context = context;
     }
 
-    public List<User> GetAll()
+    public async Task<List<User>> GetAllAsync()
     {
-        return context.Users.ToList();
+        return await context.Users.ToListAsync();
     }
 
-    public User? GetById(int id)
+    public async Task<User?> GetByIdAsync(int id)
     {
-        return context.Users.Find(id);
+        return await context.Users.FindAsync(id);
     }
 
-    public User Create(string name, string email)
+    public async Task<User> CreateAsync(string name, string email)
     {
         var user = new User
         {
@@ -30,15 +31,15 @@ public class UserRepository : IUserRepository
             Email = email
         };
 
-        context.Users.Add(user);
-        context.SaveChanges();
+        await context.Users.AddAsync(user);
+        await context.SaveChangesAsync();
 
         return user;
     }
 
-    public bool Update(int id, string name, string email)
+    public async Task<bool> UpdateAsync(int id, string name, string email)
     {
-        var user = GetById(id);
+        var user = await GetByIdAsync(id);
         if (user == null)
         {
             return false;
@@ -46,21 +47,21 @@ public class UserRepository : IUserRepository
 
         user.Name = name;
         user.Email = email;
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return true;
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var user = GetById(id);
+        var user = await GetByIdAsync(id);
         if (user == null)
         {
             return false;
         }
 
         context.Users.Remove(user);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return true;
     }
