@@ -17,32 +17,51 @@ public class WorkspaceController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Workspace>>> GetAllWorkspaces()
+    public async Task<ActionResult<IEnumerable<WorkspaceDto>>> GetAllWorkspaces()
     {
         var workspaces = await workspaceService.GetAllWorkspacesAsync();
-        return Ok(workspaces);
+        var dtos = workspaces.Select(w => new WorkspaceDto
+        {
+            Id = w.Id,
+            Name = w.Name
+        });
+
+        return Ok(dtos);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetWorkspace(int id)
+    public async Task<ActionResult<WorkspaceDto>> GetWorkspace(int id)
     {
         var workspace = await workspaceService.GetWorkspaceAsync(id);
         if (workspace == null)
         {
             return NotFound();
         }
-        return Ok(workspace);
+
+        var dto = new WorkspaceDto
+        {
+            Id = workspace.Id,
+            Name = workspace.Name
+        };
+
+        return Ok(dto);
     }
 
     [HttpPost]
-    public async Task<ActionResult<Workspace>> CreateWorkspace(CreateWorkspaceRequest request)
+    public async Task<ActionResult<WorkspaceDto>> CreateWorkspace(CreateWorkspaceRequest request)
     {
         var workspace = await workspaceService.CreateWorkspaceAsync(request);
 
+        var dto = new WorkspaceDto
+        {
+            Id = workspace.Id,
+            Name = workspace.Name
+        };
+
         return CreatedAtAction(
             nameof(GetWorkspace),
-            new { id = workspace.Id },
-            workspace);
+            new { id = dto.Id },
+            dto);
     }
 
     [HttpPut("{id}")]
